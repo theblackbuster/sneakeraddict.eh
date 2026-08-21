@@ -64,3 +64,34 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Branch Ruleset: `main` as Production, `development` as Dev
+
+Follow these steps in GitHub to enforce branch safety:
+
+1. Open the repository on GitHub, then go to **Settings**.
+2. In the left sidebar, open **Rules** > **Rulesets**.
+3. Click **New ruleset** and choose **New branch ruleset**.
+4. Set the ruleset name to `Protect main (Production)`.
+5. For **Target branches**, add `main`.
+6. Enable these rules for `main`:
+   - **Require a pull request before merging**
+   - **Require approvals** (recommended: at least 1)
+   - **Require status checks to pass** (select your CI checks)
+   - **Block force pushes**
+   - **Block deletions**
+7. Set **Bypass list** only for trusted admins/owners if absolutely required.
+8. Save the ruleset and ensure it is **Active**.
+9. Click **New ruleset** again and create another branch ruleset named `Protect development`.
+10. For **Target branches**, add `development`.
+11. Enable rules for `development` (recommended):
+    - **Require a pull request before merging**
+    - **Require status checks to pass**
+    - **Block force pushes**
+12. Save and activate the `development` ruleset.
+13. Team workflow to keep branch roles clear:
+    - Open feature/fix PRs into `development`
+    - Validate and test on `development`
+    - Promote stable changes from `development` into `main` using a PR
+
+This keeps `main` as production-ready and `development` as the integration branch.
